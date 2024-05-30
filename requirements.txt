@@ -17,3 +17,4 @@ chromadb==0.3.26
 ffmpeg-python
 ffprobe
 huggingface_hub
+security==1.2.1
