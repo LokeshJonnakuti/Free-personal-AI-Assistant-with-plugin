@@ -10,6 +10,8 @@ from hugchat import hugchat
 from hugchat.login import Login
 import pandas as pd
 import asyncio
+from security import safe_requests
+
 loop = asyncio.new_event_loop()
 asyncio.set_event_loop(loop)
 import sketch
@@ -24,7 +26,6 @@ from langchain.chains import RetrievalQA
 from HuggingChatAPI import HuggingChat
 from langchain.embeddings import HuggingFaceHubEmbeddings
 from youtube_transcript_api import YouTubeTranscriptApi
-import requests
 from bs4 import BeautifulSoup
 import speech_recognition as sr
 import pdfplumber
@@ -283,7 +284,7 @@ with st.sidebar:
                             for l in links:
                                 try:
                                     with st.spinner(f'👨‍💻 Scraping website : {l}'):
-                                        r = requests.get(l)
+                                        r = safe_requests.get(l)
                                         soup = BeautifulSoup(r.content, 'html.parser')
                                         full_text.append(soup.get_text()+"\n\n")
                                 except:
@@ -631,7 +632,7 @@ with st.sidebar:
                         #max 10 websites
                         with st.spinner('🔗 Extracting TEXT from Websites ...'):
                             for url in web_url.split("\n")[:10]:
-                                page = requests.get(url)
+                                page = safe_requests.get(url)
                                 soup = BeautifulSoup(page.content, 'html.parser')
                                 text.append(soup.get_text())
                             # creating a vectorstore
