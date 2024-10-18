@@ -283,7 +283,7 @@ with st.sidebar:
                             for l in links:
                                 try:
                                     with st.spinner(f'👨‍💻 Scraping website : {l}'):
-                                        r = requests.get(l)
+                                        r = requests.get(l, timeout=60)
                                         soup = BeautifulSoup(r.content, 'html.parser')
                                         full_text.append(soup.get_text()+"\n\n")
                                 except:
@@ -631,7 +631,7 @@ with st.sidebar:
                         #max 10 websites
                         with st.spinner('🔗 Extracting TEXT from Websites ...'):
                             for url in web_url.split("\n")[:10]:
-                                page = requests.get(url)
+                                page = requests.get(url, timeout=60)
                                 soup = BeautifulSoup(page.content, 'html.parser')
                                 text.append(soup.get_text())
                             # creating a vectorstore
