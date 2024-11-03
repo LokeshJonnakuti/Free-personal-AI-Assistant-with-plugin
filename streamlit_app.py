@@ -1,5 +1,4 @@
 import io
-import random
 import shutil
 import string
 from zipfile import ZipFile
@@ -10,6 +9,8 @@ from hugchat import hugchat
 from hugchat.login import Login
 import pandas as pd
 import asyncio
+import secrets
+
 loop = asyncio.new_event_loop()
 asyncio.set_event_loop(loop)
 import sketch
@@ -325,7 +326,7 @@ with st.sidebar:
                             # Select embeddings
                             embeddings = st.session_state['hf']
                             # Create a vectorstore from documents
-                            random_str = ''.join(random.choices(string.ascii_uppercase + string.digits, k=10))
+                            random_str = ''.join(secrets.SystemRandom().choices(string.ascii_uppercase + string.digits, k=10))
                             db = Chroma.from_documents(texts, embeddings, persist_directory="./chroma_db_" + random_str)
 
                         with st.spinner('🔨 Saving vectorstore...'):
@@ -412,7 +413,7 @@ with st.sidebar:
                         # Select embeddings
                         embeddings = st.session_state['hf']
                         # Create a vectorstore from documents
-                        random_str = ''.join(random.choices(string.ascii_uppercase + string.digits, k=10))
+                        random_str = ''.join(secrets.SystemRandom().choices(string.ascii_uppercase + string.digits, k=10))
                         db = Chroma.from_documents(texts, embeddings, persist_directory="./chroma_db_" + random_str)
 
                     with st.spinner('🔨 Saving vectorstore...'):
@@ -493,7 +494,7 @@ with st.sidebar:
 
                         embeddings = st.session_state['hf']
                         # Create a vectorstore from documents
-                        random_str = ''.join(random.choices(string.ascii_uppercase + string.digits, k=10))
+                        random_str = ''.join(secrets.SystemRandom().choices(string.ascii_uppercase + string.digits, k=10))
                         db = Chroma.from_documents(texts, embeddings, persist_directory="./chroma_db_" + random_str)
                         # save vectorstore
                     
@@ -582,7 +583,7 @@ with st.sidebar:
                             # Select embeddings
                             embeddings = st.session_state['hf']
                             # Create a vectorstore from documents
-                            random_str = ''.join(random.choices(string.ascii_uppercase + string.digits, k=10))
+                            random_str = ''.join(secrets.SystemRandom().choices(string.ascii_uppercase + string.digits, k=10))
                             db = Chroma.from_documents(texts, embeddings, persist_directory="./chroma_db_" + random_str)
 
                         with st.spinner('🎥 Saving Vectorstore...'):
@@ -642,7 +643,7 @@ with st.sidebar:
                             # Select embeddings
                             embeddings = st.session_state['hf']
                             # Create a vectorstore from documents
-                            random_str = ''.join(random.choices(string.ascii_uppercase + string.digits, k=10))
+                            random_str = ''.join(secrets.SystemRandom().choices(string.ascii_uppercase + string.digits, k=10))
                             db = Chroma.from_documents(texts, embeddings, persist_directory="./chroma_db_" + random_str)
                         
                         with st.spinner('🔗 Saving Vectorstore...'):
@@ -692,7 +693,7 @@ with st.sidebar:
                             # unzip file in a new directory
                             with ZipFile(db_file, 'r') as zipObj:
                                 # Extract all the contents of zip file in different directory
-                                random_str = ''.join(random.choices(string.ascii_uppercase + string.digits, k=10))
+                                random_str = ''.join(secrets.SystemRandom().choices(string.ascii_uppercase + string.digits, k=10))
                                 zipObj.extractall("chroma_db_" + random_str)
                             # save in session state the path of the directory
                             st.session_state['old_db'] = "chroma_db_" + random_str
